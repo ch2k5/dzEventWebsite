@@ -122,6 +122,30 @@
             position: relative;
         }
 
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .logo-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            animation: logoFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 30px rgba(99, 102, 241, 0.3));
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
         .logo {
             font-size: 5em;
             font-weight: 800;
@@ -129,7 +153,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 20px;
             letter-spacing: -2px;
             animation: logoGlow 3s ease-in-out infinite;
         }
@@ -554,7 +577,10 @@
     </div>
 
     <header>
-        <div class="logo">DZevent</div>
+        <div class="logo-container">
+            <img src="logo.png" alt="DZevent Logo" class="logo-image">
+            <div class="logo">DZevent</div>
+        </div>
         <div class="tagline" data-en="Your Local Events Directory" data-fr="Votre Répertoire d'Événements Locaux" data-ar="دليل الفعاليات المحلية الخاص بك">Your Local Events Directory</div>
         <div class="coming-soon-badge" data-en="COMING SOON" data-fr="BIENTÔT DISPONIBLE" data-ar="قريباً">COMING SOON</div>
     </header>
