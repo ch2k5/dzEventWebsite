@@ -172,15 +172,28 @@
         .coming-soon-badge {
             display: inline-block;
             background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            padding: 12px 40px;
+            padding: 15px 50px;
             border-radius: 50px;
             font-size: 1.1em;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
-            animation: pulse 2s infinite;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            color: white;
+            text-decoration: none;
+        }
+
+        .coming-soon-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(99, 102, 241, 0.6);
+        }
+
+        .coming-soon-badge:active {
+            transform: translateY(0);
         }
 
         .coming-soon-badge::before {
@@ -194,6 +207,18 @@
             animation: shine 3s infinite;
         }
 
+        .coming-soon-badge::after {
+            content: '↓';
+            margin-left: 10px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+
         @keyframes shine {
             0% { left: -100%; }
             100% { left: 100%; }
@@ -202,6 +227,11 @@
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
         }
 
         /* Container */
@@ -582,7 +612,7 @@
             <div class="logo">DZevent</div>
         </div>
         <div class="tagline" data-en="Your Local Events Directory" data-fr="Votre Répertoire d'Événements Locaux" data-ar="دليل الفعاليات المحلية الخاص بك">Your Local Events Directory</div>
-        <div class="coming-soon-badge" data-en="COMING SOON" data-fr="BIENTÔT DISPONIBLE" data-ar="قريباً">COMING SOON</div>
+        <a href="#waitlist" class="coming-soon-badge" data-en="JOIN US" data-fr="REJOIGNEZ-NOUS" data-ar="انضم إلينا">JOIN US</a>
     </header>
 
     <div class="container">
@@ -692,7 +722,7 @@
             </div>
         </section>
 
-        <section class="waitlist">
+        <section class="waitlist" id="waitlist">
             <h2 data-en="Join the Waitlist" data-fr="Rejoignez la Liste d'Attente" data-ar="انضم إلى قائمة الانتظار">Join the Waitlist</h2>
             <p data-en="Be the first to know when we launch! Enter your email to get early access."
                data-fr="Soyez le premier à savoir quand nous lançons ! Entrez votre email pour obtenir un accès anticipé."
