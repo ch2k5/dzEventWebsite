@@ -207,6 +207,18 @@
             animation: shine 3s infinite;
         }
 
+        .coming-soon-badge::after {
+            content: '↓';
+            margin-left: 10px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+
         @keyframes shine {
             0% { left: -100%; }
             100% { left: 100%; }
@@ -215,6 +227,11 @@
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
         }
 
         /* Container */
@@ -595,11 +612,11 @@
             <div class="logo">DZevent</div>
         </div>
         <div class="tagline" data-en="Your Local Events Directory" data-fr="Votre Répertoire d'Événements Locaux" data-ar="دليل الفعاليات المحلية الخاص بك">Your Local Events Directory</div>
-        <div class="coming-soon-badge" data-en="COMING SOON" data-fr="BIENTÔT DISPONIBLE" data-ar="قريباً">COMING SOON</div>
+        <a href="#features" class="coming-soon-badge" data-en="JOIN US" data-fr="REJOIGNEZ-NOUS" data-ar="انضم إلينا">JOIN US</a>
     </header>
 
     <div class="container">
-        <section>
+        <section id="features">
             <h2 data-en="The Problem We Solve" data-fr="Le Problème Que Nous Résolvons" data-ar="المشكلة التي نحلها">The Problem We Solve</h2>
             <div class="problem-solution">
                 <div class="card">
@@ -705,7 +722,7 @@
             </div>
         </section>
 
-        <section class="waitlist">
+        <section class="waitlist" id="waitlist">
             <h2 data-en="Join the Waitlist" data-fr="Rejoignez la Liste d'Attente" data-ar="انضم إلى قائمة الانتظار">Join the Waitlist</h2>
             <p data-en="Be the first to know when we launch! Enter your email to get early access."
                data-fr="Soyez le premier à savoir quand nous lançons ! Entrez votre email pour obtenir un accès anticipé."
