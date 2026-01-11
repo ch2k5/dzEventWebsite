@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DZevent - Coming Soon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0e27, #1a1f3a, #2a1f3f);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(circle, rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                radial-gradient(circle, rgba(168, 85, 247, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(99, 102, 241, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        /* Language Switch */
+        .lang-switch {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.8)); }
+        }
+
+        .tagline {
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 700;
+            letter-spacing: 3px;
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styling */
+        section {
+            margin: 80px auto;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+        }
+
+        h2 {
+            font-size: 3em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Problem Solution Grid */
+        .problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #a855f7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.05em;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .feature:hover::after {
+            transform: scaleX(1);
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            background: rgba(99, 102, 241, 0.1);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .feature h4 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #a855f7;
+        }
+
+        .feature p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Team Grid */
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .member {
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .member:hover::before {
+            left: 100%;
+        }
+
+        .member:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2), inset 0 0 20px rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: visible;
+        }
+
+        .member-avatar svg {
+            width: 60px;
+            height: 60px;
+            opacity: 0.4;
+        }
+
+        .member-name {
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .member-role {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95em;
+        }
+
+        /* Waitlist Section */
+        .waitlist {
+            text-align: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+            border-radius: 30px;
+            margin-top: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .waitlist h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .waitlist p {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .email-input {
+            flex: 1;
+            min-width: 280px;
+            padding: 18px 25px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .email-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .submit-btn {
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95em;
+        }
+
+        /* RTL Support */
+        [dir="rtl"] {
+            direction: rtl;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3em;
+            }
+
+            .tagline {
+                font-size: 1.1em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            .problem-solution {
+                grid-template-columns: 1fr;
+            }
+
+            .lang-switch {
+                top: 15px;
+                right: 15px;
+            }
+
+            .lang-btn {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            section {
+                padding: 40px 25px;
+                margin: 40px auto;
+            }
+
+            .card, .feature {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+    <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+    <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
+    <div class="particle" style="left: 80%; animation-delay: 4.5s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 1.5s;"></div>
+
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="switchLang('en')">EN</button>
+        <button class="lang-btn" onclick="switchLang('fr')">FR</button>
+        <button class="lang-btn" onclick="switchLang('ar')">AR</button>
+    </div>
+
+    <header>
+        <div class="logo">DZevent</div>
+        <div class="tagline" data-en="Your Local Events Directory" data-fr="Votre Répertoire d'Événements Locaux" data-ar="دليل الفعاليات المحلية الخاص بك">Your Local Events Directory</div>
+        <div class="coming-soon-badge" data-en="COMING SOON" data-fr="BIENTÔT DISPONIBLE" data-ar="قريباً">COMING SOON</div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2 data-en="The Problem We Solve" data-fr="Le Problème Que Nous Résolvons" data-ar="المشكلة التي نحلها">The Problem We Solve</h2>
+            <div class="problem-solution">
+                <div class="card">
+                    <h3 data-en="The Challenge" data-fr="Le Défi" data-ar="التحدي">The Challenge</h3>
+                    <p data-en="Associations struggle to reach the right audience, and people miss relevant events or face clunky sign-up flows. Event discovery is fragmented across social media, flyers, and chat groups." 
+                       data-fr="Les associations ont du mal à atteindre le bon public, et les gens manquent des événements pertinents ou font face à des processus d'inscription compliqués. La découverte d'événements est fragmentée entre les médias sociaux, les dépliants et les groupes de discussion."
+                       data-ar="تكافح الجمعيات للوصول إلى الجمهور المناسب، ويفوت الناس الفعاليات ذات الصلة أو يواجهون تدفقات تسجيل معقدة. اكتشاف الفعاليات مجزأ عبر وسائل التواصل الاجتماعي والنشرات ومجموعات الدردشة.">
+                        Associations struggle to reach the right audience, and people miss relevant events or face clunky sign-up flows. Event discovery is fragmented across social media, flyers, and chat groups.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 data-en="Our Solution" data-fr="Notre Solution" data-ar="حلنا">Our Solution</h3>
+                    <p data-en="A lightweight, local-first directory where associations publish once and reach interested users, while users get personalized recommendations and frictionless applications."
+                       data-fr="Un répertoire léger et local où les associations publient une fois et atteignent les utilisateurs intéressés, tandis que les utilisateurs obtiennent des recommandations personnalisées et des candidatures sans friction."
+                       data-ar="دليل خفيف ومحلي حيث تنشر الجمعيات مرة واحدة وتصل إلى المستخدمين المهتمين، بينما يحصل المستخدمون على توصيات مخصصة وتطبيقات سلسة.">
+                        A lightweight, local-first directory where associations publish once and reach interested users, while users get personalized recommendations and frictionless applications.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-en="Key Features" data-fr="Fonctionnalités Clés" data-ar="الميزات الرئيسية">Key Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <h4 data-en="📅 Event Discovery" data-fr="📅 Découverte d'Événements" data-ar="📅 اكتشاف الفعاليات">📅 Event Discovery</h4>
+                    <p data-en="Browse events by category, city, and date with a clean, intuitive feed"
+                       data-fr="Parcourez les événements par catégorie, ville et date avec un fil d'actualité propre et intuitif"
+                       data-ar="تصفح الفعاليات حسب الفئة والمدينة والتاريخ مع موجز نظيف وبديهي">
+                        Browse events by category, city, and date with a clean, intuitive feed
+                    </p>
+                </div>
+                <div class="feature">
+                    <h4 data-en="🎯 For Associations" data-fr="🎯 Pour les Associations" data-ar="🎯 للجمعيات">🎯 For Associations</h4>
+                    <p data-en="Create and manage events with standardized fields and track applications easily"
+                       data-fr="Créez et gérez des événements avec des champs standardisés et suivez facilement les candidatures"
+                       data-ar="إنشاء وإدارة الفعاليات بحقول موحدة وتتبع التطبيقات بسهولة">
+                        Create and manage events with standardized fields and track applications easily
+                    </p>
+                </div>
+                <div class="feature">
+                    <h4 data-en="💾 Save & Follow" data-fr="💾 Enregistrer & Suivre" data-ar="💾 حفظ ومتابعة">💾 Save & Follow</h4>
+                    <p data-en="Save interesting events and follow your favorite associations for updates"
+                       data-fr="Enregistrez des événements intéressants et suivez vos associations préférées pour les mises à jour"
+                       data-ar="احفظ الفعاليات المثيرة للاهتمام وتابع جمعياتك المفضلة للحصول على التحديثات">
+                        Save interesting events and follow your favorite associations for updates
+                    </p>
+                </div>
+                <div class="feature">
+                    <h4 data-en="🔔 Smart Notifications" data-fr="🔔 Notifications Intelligentes" data-ar="🔔 إشعارات ذكية">🔔 Smart Notifications</h4>
+                    <p data-en="Get notified about events matching your interests and location"
+                       data-fr="Recevez des notifications sur les événements correspondant à vos intérêts et à votre emplacement"
+                       data-ar="احصل على إشعارات حول الفعاليات التي تتوافق مع اهتماماتك وموقعك">
+                        Get notified about events matching your interests and location
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-en="Meet Our Team" data-fr="Rencontrez Notre Équipe" data-ar="تعرف على فريقنا">Meet Our Team</h2>
+            <div class="team">
+                <div class="member">
+                    <div class="member-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="member-name">BELKESSAM Badis</div>
+                    <div class="member-role" data-en="Team Leader" data-fr="Chef d'Équipe" data-ar="قائد الفريق">Team Leader</div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="member-name">Mokhati Abdelali</div>
+                    <div class="member-role" data-en="Team Member" data-fr="Membre de l'Équipe" data-ar="عضو الفريق">Team Member</div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="member-name">HAMADA Chakib</div>
+                    <div class="member-role" data-en="Team Member" data-fr="Membre de l'Équipe" data-ar="عضو الفريق">Team Member</div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="member-name">Amdjed Takieddine</div>
+                    <div class="member-role" data-en="Team Member" data-fr="Membre de l'Équipe" data-ar="عضو الفريق">Team Member</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="waitlist">
+            <h2 data-en="Join the Waitlist" data-fr="Rejoignez la Liste d'Attente" data-ar="انضم إلى قائمة الانتظار">Join the Waitlist</h2>
+            <p data-en="Be the first to know when we launch! Enter your email to get early access."
+               data-fr="Soyez le premier à savoir quand nous lançons ! Entrez votre email pour obtenir un accès anticipé."
+               data-ar="كن أول من يعرف عند إطلاقنا! أدخل بريدك الإلكتروني للحصول على وصول مبكر.">
+                Be the first to know when we launch! Enter your email to get early access.
+            </p>
+            <form class="email-form" onsubmit="handleSubmit(event)">
+                <input type="email" class="email-input" placeholder="your@email.com" required>
+                <button type="submit" class="submit-btn" data-en="Notify Me" data-fr="Me Notifier" data-ar="أخبرني">Notify Me</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p data-en="© 2025 DZevent. Making event discovery simple and accessible for everyone."
+           data-fr="© 2025 DZevent. Rendre la découverte d'événements simple et accessible à tous."
+           data-ar="© 2025 DZevent. جعل اكتشاف الفعاليات بسيطًا ومتاحًا للجميع.">
+            © 2025 DZevent. Making event discovery simple and accessible for everyone.
+        </p>
+    </footer>
+
+    <script>
+        let currentLang = 'en';
+
+        function switchLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            if (lang === 'ar') {
+                document.body.setAttribute('dir', 'rtl');
+            } else {
+                document.body.setAttribute('dir', 'ltr');
+            }
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (el.tagName === 'INPUT') {
+                        el.placeholder = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+        }
+
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('.submit-btn');
+            const emailInput = e.target.querySelector('input');
+            const email = emailInput.value;
+            
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            const originalText = submitBtn.textContent;
+            const loadingTexts = {
+                en: 'Saving...',
+                fr: 'Enregistrement...',
+                ar: 'جاري الحفظ...'
+            };
+            submitBtn.textContent = loadingTexts[currentLang];
+            
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwDp7WsyOaWziD55Jm9tv09RmqoNdcEB5Jx8uBBo8oqV82b7X9uBL_6tvfwU7zqh7Foww/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        language: currentLang
+                    })
+                });
+                
+                const successMessages = {
+                    en: '✅ Thank you for joining! We\'ll notify you when we launch.',
+                    fr: '✅ Merci de vous joindre ! Nous vous informerons lors du lancement.',
+                    ar: '✅ شكرا لانضمامك! سنخطرك عند الإطلاق.'
+                };
+                alert(successMessages[currentLang]);
+                e.target.reset();
+                
+            } catch (error) {
+                const errorMessages = {
+                    en: '❌ Oops! Something went wrong. Please try again.',
+                    fr: '❌ Oups ! Une erreur s\'est produite. Veuillez réessayer.',
+                    ar: '❌ عذرا! حدث خطأ ما. يرجى المحاولة مرة أخرى.'
+                };
+                alert(errorMessages[currentLang]);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        }
+    </script>
+</body>
+</html>
